@@ -1,5 +1,5 @@
-import { A, Test } from "ts-toolbelt";
-import NamedEnum, { aliasableSymbol } from "./NamedEnum";
+import { A, Test } from 'ts-toolbelt';
+import NamedEnum, { aliasableSymbol } from './NamedEnum';
 
 const { check, checks } = Test;
 
@@ -14,7 +14,7 @@ const MyEnumHour: MyEnum = { hours: 1 };
 export const MyEnums = NamedEnum({
     WEEK: { alias: ['week', 'weeks', 'w'], value: MyEnumWeek },
     DAY: { alias: ['day', 'days', 'd'], value: MyEnumDay },
-    HOUR: { alias: ['hour', 'hours', 'h'], value: MyEnumHour }
+    HOUR: { alias: ['hour', 'hours', 'h'], value: MyEnumHour },
 });
 
 export type MyEnumsComp = A.Compute<{
@@ -22,7 +22,7 @@ export type MyEnumsComp = A.Compute<{
     DAY: MyEnum;
     HOUR: MyEnum;
     parse: (text: string) => MyEnum | undefined;
-}>
+}>;
 
 class MyEnum2 {
     private alias: string[];
@@ -41,7 +41,7 @@ const MyEnum2Day = new MyEnum2(['day', 'days', 'd']);
 
 export const MyEnum2s = NamedEnum({
     WEEK: MyEnum2Week,
-    DAY: MyEnum2Day
+    DAY: MyEnum2Day,
 });
 
 export interface MyEnum2sComp {
@@ -50,13 +50,9 @@ export interface MyEnum2sComp {
     parse: (text: string) => MyEnum2 | undefined;
 }
 
-checks([
-    check<typeof MyEnums, MyEnumsComp, Test.Pass>()
-]);
+checks([check<typeof MyEnums, MyEnumsComp, Test.Pass>()]);
 
-checks([
-    check<typeof MyEnum2s, MyEnum2sComp, Test.Pass>()
-]);
+checks([check<typeof MyEnum2s, MyEnum2sComp, Test.Pass>()]);
 
 //@ts-expect-error options can't be empty
 export const MyEmptyEnum = NamedEnum({});

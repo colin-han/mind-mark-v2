@@ -1,4 +1,4 @@
-import { O } from "ts-toolbelt";
+import { O } from 'ts-toolbelt';
 
 export const aliasableSymbol = Symbol('aliasable');
 
@@ -7,8 +7,8 @@ interface AliasableEnumItem {
 }
 
 export interface EnumItemDefine<ItemType> {
-    alias: string[],
-    value: ItemType
+    alias: string[];
+    value: ItemType;
 }
 
 type NamedEnumType<ItemType, Keys extends string> = O.Merge<
@@ -22,7 +22,9 @@ function isAliasable(obj: object): obj is AliasableEnumItem {
     return aliasableSymbol in obj && typeof obj[aliasableSymbol] === 'function';
 }
 function isAliasableDefs<ItemType extends object, Keys extends string>(
-    def: { [key in Keys]: ItemType } | { [key in Keys]: EnumItemDefine<ItemType> }
+    def:
+        | { [key in Keys]: ItemType }
+        | { [key in Keys]: EnumItemDefine<ItemType> }
 ): def is { [key in Keys]: ItemType } {
     const keys = Object.keys(def) as Keys[];
     if (!keys.length) {
@@ -41,18 +43,23 @@ function NamedEnum<
     DefItemType extends AliasableEnumItem | EnumItemDefine<object>,
     Keys extends string,
     ItemType = DefItemType extends EnumItemDefine<object>
-    ? DefItemType['value']
-    : DefItemType extends AliasableEnumItem
-    ? DefItemType
-    : never
->(def: AtLeastOne<{ [key in Keys]: DefItemType }>): NamedEnumType<ItemType, Keys> {
+        ? DefItemType['value']
+        : DefItemType extends AliasableEnumItem
+          ? DefItemType
+          : never,
+>(
+    def: AtLeastOne<{ [key in Keys]: DefItemType }>
+): NamedEnumType<ItemType, Keys> {
     if (isAliasableDefs(def)) {
-        return _NamedEnumByAliasable(def as { [key in Keys]: AliasableEnumItem }) as NamedEnumType<ItemType, Keys>;
+        return _NamedEnumByAliasable(
+            def as { [key in Keys]: AliasableEnumItem }
+        ) as NamedEnumType<ItemType, Keys>;
     } else {
-        return _NamedEnumByDefs(def as { [key in Keys]: EnumItemDefine<ItemType> });
+        return _NamedEnumByDefs(
+            def as { [key in Keys]: EnumItemDefine<ItemType> }
+        );
     }
 }
-
 
 // function NamedEnum<ItemType extends AliasableEnumItem, Keys extends string>(def: AtLeastOne<{ [key in Keys]: ItemType }>): NamedEnumType<ItemType, Keys>;
 // function NamedEnum<ItemType, Keys extends string>(def: AtLeastOne<{ [key in Keys]: EnumItemDefine<ItemType> }>): NamedEnumType<ItemType, Keys>;
@@ -68,7 +75,7 @@ function NamedEnum<
 
 export function _NamedEnumByAliasable<
     ItemType extends AliasableEnumItem,
-    Keys extends string
+    Keys extends string,
 >(def: { [key in Keys]: ItemType }): NamedEnumType<ItemType, Keys> {
     const result = {
         parse(text: string): ItemType | undefined {
@@ -79,7 +86,7 @@ export function _NamedEnumByAliasable<
                 }
             }
             return undefined;
-        }
+        },
     } as NamedEnumType<ItemType, Keys>;
 
     for (const key in def) {
@@ -89,7 +96,9 @@ export function _NamedEnumByAliasable<
     return result;
 }
 
-function _NamedEnumByDefs<ItemType, Keys extends string>(def: { [key in Keys]: EnumItemDefine<ItemType> }): NamedEnumType<ItemType, Keys> {
+function _NamedEnumByDefs<ItemType, Keys extends string>(def: {
+    [key in Keys]: EnumItemDefine<ItemType>;
+}): NamedEnumType<ItemType, Keys> {
     const result = {
         parse(text: string): ItemType | undefined {
             for (const key in def) {
@@ -99,7 +108,7 @@ function _NamedEnumByDefs<ItemType, Keys extends string>(def: { [key in Keys]: E
                 }
             }
             return undefined;
-        }
+        },
     } as NamedEnumType<ItemType, Keys>;
 
     for (const key in def) {
