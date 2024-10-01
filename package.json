@@ -1,0 +1,16 @@
+{
+  "name": "mind-mark-v2",
+  "version": "1.0.0",
+  "description": "Mind-mark service use plain text to generate a mind map diagram",
+  "main": "index.js",
+  "repository": "https://github.com/colin-han/mind-mark-v2",
+  "author": "Colin <biz@colinhan.info>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10"
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
+}

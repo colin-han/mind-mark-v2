@@ -1,0 +1,8 @@
+{
+    "*.{ts,tsx}" : [
+        "cd ./core && yarn tsc --noEmit",
+        "cd ./core && yarn eslint --fix",
+        "cd ./core && yarn prettier --write"
+    ],
+    "*.md": "cd ./core && yarn prettier --list-different"
+}
