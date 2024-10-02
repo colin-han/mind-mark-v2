@@ -1,6 +1,6 @@
 export class TypeError extends Error {
     constructor() {
-        super('Type is not match!');
+        super('Type does not match!');
     }
 }
 
@@ -9,31 +9,19 @@ export function typeError() {
     return _typeError;
 }
 
-export class ParseError extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
+export class ParseError extends Error {}
 
 export function parseError(message: string) {
-    return parseError(message);
+    return new ParseError(message);
 }
 
-export class RuntimeError extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
+export class RuntimeError extends Error {}
 
 export function runtimeError(message: string) {
     return new RuntimeError(message);
 }
 
-export class IllegalArgumentError extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
+export class IllegalArgumentError extends Error {}
 
 export function illegalArgumentError(message: string) {
     return new IllegalArgumentError(message);
