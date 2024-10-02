@@ -16,7 +16,7 @@ export class ParseError extends Error {
 }
 
 export function parseError(message: string) {
-    return new ParseError(message);
+    return parseError(message);
 }
 
 export class RuntimeError extends Error {

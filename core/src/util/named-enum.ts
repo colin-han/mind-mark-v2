@@ -61,19 +61,7 @@ function NamedEnum<
     }
 }
 
-// function NamedEnum<ItemType extends AliasableEnumItem, Keys extends string>(def: AtLeastOne<{ [key in Keys]: ItemType }>): NamedEnumType<ItemType, Keys>;
-// function NamedEnum<ItemType, Keys extends string>(def: AtLeastOne<{ [key in Keys]: EnumItemDefine<ItemType> }>): NamedEnumType<ItemType, Keys>;
-// function NamedEnum<ItemType, Keys extends string>(
-//   def: ItemType extends AliasableEnumItem ? AtLeastOne<{ [key in Keys]: ItemType }> : AtLeastOne<{ [key in Keys]: EnumItemDefine<ItemType> }>
-// ): NamedEnumType<ItemType, Keys> {
-//   if (isAliasableDefs(def)) {
-//     return _NamedEnumByAliasable(def as { [key in Keys]: AliasableEnumItem }) as NamedEnumType<ItemType, Keys>;
-//   } else {
-//     return _NamedEnumByDefs(def as { [key in Keys]: EnumItemDefine<ItemType> });
-//   }
-// }
-
-export function _NamedEnumByAliasable<
+function _NamedEnumByAliasable<
     ItemType extends AliasableEnumItem,
     Keys extends string,
 >(def: { [key in Keys]: ItemType }): NamedEnumType<ItemType, Keys> {

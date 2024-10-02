@@ -1,7 +1,5 @@
-import { A, Test } from 'ts-toolbelt';
-import NamedEnum, { aliasableSymbol } from './NamedEnum';
-
-const { check, checks } = Test;
+import { A } from 'ts-toolbelt';
+import NamedEnum, { aliasableSymbol } from './named-enum';
 
 interface MyEnum {
     hours: number;
@@ -50,9 +48,19 @@ export interface MyEnum2sComp {
     parse: (text: string) => MyEnum2 | undefined;
 }
 
-checks([check<typeof MyEnums, MyEnumsComp, Test.Pass>()]);
+it('should has member as define', () => {
+    expect(MyEnums.WEEK).toBeDefined();
+    expect(MyEnums.DAY).toBeDefined();
+    expect(MyEnums.HOUR).toBeDefined();
 
-checks([check<typeof MyEnum2s, MyEnum2sComp, Test.Pass>()]);
+    expect(MyEnum2s.WEEK).toBeDefined();
+    expect(MyEnum2s.DAY).toBeDefined();
+    expect(MyEnum2s.parse).toBeDefined();
+});
 
-//@ts-expect-error options can't be empty
-export const MyEmptyEnum = NamedEnum({});
+it('should parse correctly', () => {
+    expect(MyEnums.parse('week')).toBe(MyEnums.WEEK);
+    expect(MyEnums.parse('weeks')).toBe(MyEnums.WEEK);
+    expect(MyEnum2s.parse('d')).toBe(MyEnum2s.DAY);
+    expect(MyEnum2s.parse('days')).toBe(MyEnum2s.DAY);
+});

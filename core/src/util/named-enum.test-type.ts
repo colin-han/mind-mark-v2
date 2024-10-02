@@ -1,5 +1,7 @@
-import { A } from 'ts-toolbelt';
-import NamedEnum, { aliasableSymbol } from './NamedEnum';
+import { A, Test } from 'ts-toolbelt';
+import NamedEnum, { aliasableSymbol } from './named-enum';
+
+const { check, checks } = Test;
 
 interface MyEnum {
     hours: number;
@@ -47,3 +49,10 @@ export interface MyEnum2sComp {
     DAY: MyEnum2;
     parse: (text: string) => MyEnum2 | undefined;
 }
+
+checks([check<typeof MyEnums, MyEnumsComp, Test.Pass>()]);
+
+checks([check<typeof MyEnum2s, MyEnum2sComp, Test.Pass>()]);
+
+//@ts-expect-error options can't be empty
+export const MyEmptyEnum = NamedEnum({});
