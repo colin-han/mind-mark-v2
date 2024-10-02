@@ -17,12 +17,12 @@ const STYLE_ELEMENT_PATTERN = /^([\w\-.]+)\s*:\s*([^,]+)$/;
 const directiveMapping: {
     [type: string]: DirectiveParser;
 } = {
-    setting: parseSettingDirecitve,
+    setting: parseSettingDirective,
     include: parseIncludeDirective,
     style: parseStyleDirective,
 };
 
-function parseSettingDirecitve(indent: number, line: string): SettingDirecitve {
+function parseSettingDirective(indent: number, line: string): SettingDirecitve {
     const lines = line.split(/[\r\n]+/);
     return new SettingDirecitve(
         indent,
