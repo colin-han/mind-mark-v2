@@ -20,18 +20,16 @@ export function parse(name: string, text: string): Doc {
     const stack = [doc.root];
     let currentNode = doc.root;
 
-    const errors: ParseError[] = [];
-
     const lines = text.split(/[\r\n]+/);
-    for (const line in lines) {
+    for (const line of lines) {
         if (isComments(line)) {
             continue;
         }
 
         if (isDirective(line)) {
-            processForDirective(line, currentNode, errors);
+            processForDirective(line, currentNode, doc.errors);
         } else {
-            currentNode = processForNode(line, stack, currentNode, errors);
+            currentNode = processForNode(line, stack, currentNode, doc.errors);
         }
     }
     return doc;
