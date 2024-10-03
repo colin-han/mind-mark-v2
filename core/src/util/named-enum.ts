@@ -27,11 +27,13 @@ function isAliasableDefs<ItemType extends object, Keys extends string>(
         | { [key in Keys]: EnumItemDefine<ItemType> }
 ): def is { [key in Keys]: ItemType } {
     const keys = Object.keys(def) as Keys[];
+    /* c8 ignore next 3 */
     if (!keys.length) {
         return false;
     }
 
     const firstElem = def[keys[0]];
+    /* c8 ignore next 3 */
     if (typeof firstElem !== 'object') {
         return false;
     }

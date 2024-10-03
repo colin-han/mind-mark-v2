@@ -23,7 +23,7 @@ export type MyEnumsComp = A.Compute<{
 }>;
 
 class MyEnum2 {
-    private alias: string[];
+    private readonly alias: string[];
 
     [aliasableSymbol](): string[] {
         return this.alias;
@@ -56,6 +56,7 @@ it('should has member as define', () => {
     expect(MyEnum2s.WEEK).toBeDefined();
     expect(MyEnum2s.DAY).toBeDefined();
     expect(MyEnum2s.parse).toBeDefined();
+    expect(MyEnums.parse('not-existed')).toBeUndefined();
 });
 
 it('should parse correctly', () => {
@@ -63,4 +64,5 @@ it('should parse correctly', () => {
     expect(MyEnums.parse('weeks')).toBe(MyEnums.WEEK);
     expect(MyEnum2s.parse('d')).toBe(MyEnum2s.DAY);
     expect(MyEnum2s.parse('days')).toBe(MyEnum2s.DAY);
+    expect(MyEnum2s.parse('not-existed')).toBeUndefined();
 });

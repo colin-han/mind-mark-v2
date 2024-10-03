@@ -48,7 +48,7 @@ describe('parse', () => {
 
     it('should report error if parse directive failed', () => {
         const name = 'testDoc';
-        const text = '@setting';
+        const text = '@setting a b';
         const doc = parse(name, text);
         expect(doc.errors.length).toBe(1);
     });

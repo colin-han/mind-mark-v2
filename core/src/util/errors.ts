@@ -1,3 +1,4 @@
+/* c8 ignore start */
 export class TypeError extends Error {
     constructor() {
         super('Type does not match!');

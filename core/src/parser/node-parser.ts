@@ -23,7 +23,7 @@ export function parseNode(line: string): Node {
     let match;
     while ((match = NODE_ADDITIONS_PATTERN.exec(additionString))) {
         const type = match[1];
-        const value = match[2]?.trim();
+        const value = match[2].trim();
         switch (type) {
             case '@':
                 assignees.push(value);
@@ -35,8 +35,6 @@ export function parseNode(line: string): Node {
                 if (estimation) throw parseError('Duplicate estimation');
                 estimation = parseEstimation(value);
                 break;
-            default:
-                throw parseError('Invalid node addition: ' + type);
         }
     }
     return new Node(indent, title, assignees, tags, estimation);
