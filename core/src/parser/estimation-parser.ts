@@ -2,7 +2,7 @@ import { Estimation } from '../model/estimation';
 import { EstimationUnits } from '../model/estimation-unit';
 import { parseError } from '../util/errors';
 
-const ESTIMATION_PATTERN = /(\d+(?:\.\d+)?)\s*(h|d|w|hours?|days?|weeks?)/i;
+const ESTIMATION_PATTERN = /^(\d+(?:\.\d+)?)\s*(h|d|w|hours?|days?|weeks?)$/i;
 
 export function parseEstimation(line: string): Estimation | undefined {
     const match = ESTIMATION_PATTERN.exec(line);
