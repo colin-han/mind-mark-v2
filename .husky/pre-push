@@ -1,2 +1,2 @@
 cd ./core
-yarn test
+yarn test --coverage

@@ -1,4 +1,8 @@
 {
-    "*.{ts,tsx}": ["tsc --noEmit", "eslint --fix", "prettier --write"],
+    "*.{ts,tsx}": [
+        "tsc --noEmit --skipLibCheck",
+        "eslint --fix",
+        "prettier --write"
+    ],
     "*.md": "yarn prettier --list-different"
 }

@@ -10,7 +10,6 @@ export function parseEstimation(line: string): Estimation | undefined {
 
     const value = parseFloat(match[1]);
     const unit = EstimationUnits.parse(match[2].toLowerCase());
-    if (!unit) throw parseError(`Invalid estimation unit: ${match[2]}`);
 
-    return new Estimation(unit, value);
+    return new Estimation(unit!, value);
 }
