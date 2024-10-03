@@ -16,13 +16,33 @@ const STYLE_ELEMENT_PATTERN = /^([\w\-.]+)\s*:\s*([^,]+)$/;
 const SETTING_PATTERN = /^(\w+)\s*(:?\(([^)]*)\))?$/;
 const SETTING_PARAMETERS_PATTERN = /\s*(?:"((?:[^"]|"")*)"|(\w+))\s*/g;
 
-const directiveMapping: {
-    [type: string]: DirectiveParser;
-} = {
-    setting: parseSettingDirective,
+type DirectiveMappingConf = {
+    [type: string]: [DirectiveParser, ...string[]] | DirectiveParser;
+};
+
+type DirectiveMapping = { [type: string]: DirectiveParser };
+
+function buildDirectiveMapping(conf: DirectiveMappingConf): DirectiveMapping {
+    const mapping: DirectiveMapping = {};
+    for (const [type, parser] of Object.entries(conf)) {
+        if (Array.isArray(parser)) {
+            const [directiveParser, ...aliases] = parser;
+            mapping[type] = directiveParser;
+            for (const alias of aliases) {
+                mapping[alias] = directiveParser;
+            }
+        } else {
+            mapping[type] = parser;
+        }
+    }
+    return mapping;
+}
+
+const directiveMapping: DirectiveMapping = buildDirectiveMapping({
+    setting: [parseSettingDirective, 'enable'],
     include: parseIncludeDirective,
     style: parseStyleDirective,
-};
+});
 
 function parseSetting(line: string): Setting {
     const match = SETTING_PATTERN.exec(line);
