@@ -75,4 +75,9 @@ describe('parseDirective', () => {
         expect(directive.indent).toBe(2);
         expect(directive.settings[0].definition.name).toBe('autoNumber');
     });
+
+    it('should report error if unknown setting type', () => {
+        const line = '  @setting unknown';
+        expect(() => parseDirective(line)).toThrow('Unknown setting: unknown');
+    });
 });

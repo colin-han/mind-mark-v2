@@ -8,6 +8,7 @@ const INDENT_PATTERN = /^(\s*)([^@#&%]+?)(?:\s+([@#&%].*?))?\s*$/;
 
 export function parseNode(line: string): Node {
     const nodeMatch = INDENT_PATTERN.exec(line);
+    /* c8 ignore next 3 */
     if (!nodeMatch) {
         throw parseError('Invalid node format: ' + line);
     }

@@ -113,3 +113,23 @@ it('parse should be case insensitive', () => {
     expect(MyEnum3s.parse('W')).toBe(MyEnum3s.WEEK);
     expect(MyEnum3s.parse('w')).toBe(MyEnum3s.WEEK);
 });
+
+it('should throw error for duplicate keys', () => {
+    expect(() =>
+        NamedEnum({
+            WEEK: { alias: ['week', 'weeks', 'w'], value: MyEnumWeek },
+            DAY: { alias: ['day', 'days', 'd'], value: MyEnumDay },
+            WEEKS: { alias: ['week', 'weeks', 'w'], value: MyEnumWeek },
+        })
+    ).toThrow('Duplicated key: WEEKS');
+});
+
+it('should throw error for duplicate alias', () => {
+    expect(() =>
+        NamedEnum({
+            WEEK: { alias: ['week', 'weeks', 'w'], value: MyEnumWeek },
+            DAY: { alias: ['day', 'days', 'd'], value: MyEnumDay },
+            HOUR: { alias: ['hour', 'hours', 'h', 'h'], value: MyEnumHour },
+        })
+    ).toThrow('Duplicated alias: h');
+});

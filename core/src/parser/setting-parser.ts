@@ -95,6 +95,9 @@ function setParameter(
 ) {
     const resultParameter = parameters[key];
     if (resultParameter.definition.allowMultiple) {
+        if (!resultParameter.isSet) {
+            resultParameter.value = [];
+        }
         (resultParameter.value as string[]).push(value);
         resultParameter.isSet = true;
     } else {

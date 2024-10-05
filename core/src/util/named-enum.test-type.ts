@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { A, Test } from 'ts-toolbelt';
 import NamedEnum, { aliasableSymbol } from './named-enum';
-import { keys } from 'lodash';
 
 const { check, checks } = Test;
 
@@ -82,5 +81,5 @@ it('should parse by string array correctly', () => {
 
 it('should disallow empty definition', () => {
     //@ts-expect-error options can't be empty
-    const MyEmptyEnum = NamedEnum({});
+    NamedEnum({});
 });
