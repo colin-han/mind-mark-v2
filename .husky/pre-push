@@ -1,2 +1,4 @@
 cd ./core
 yarn test --coverage
+cd ../server
+yarn next test --coverage

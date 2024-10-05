@@ -1,11 +1,11 @@
 import {
     Directive,
     IncludeDirective,
-    Setting,
     SettingDirecitve,
     StyleDirective,
 } from '../model/directive';
 import { parseError } from '../util/errors';
+import { parseSetting } from './setting-parser';
 
 type DirectiveParser = (indent: number, line: string) => Directive;
 
@@ -13,8 +13,6 @@ const DIRECTIVE_PATTERN = /^(\s*)@(\w+)\s+(.*?)\s*$/;
 const INCLUDE_DIRECTIVE_PATTERN = /^\s*([^()]+)\s*\(\s*([^()]+)\s*\)\s*$/;
 const STYLE_DIRECTIVE_PATTERN = /^\s*#([\w\-.]+)\s+(.*?)\s*$/;
 const STYLE_ELEMENT_PATTERN = /^([\w\-.]+)\s*:\s*([^,]+)$/;
-const SETTING_PATTERN = /^(\w+)\s*(:?\(([^)]*)\))?$/;
-const SETTING_PARAMETERS_PATTERN = /\s*(?:"((?:[^"]|"")*)"|(\w+))\s*/g;
 
 type DirectiveMappingConf = {
     [type: string]: [DirectiveParser, ...string[]] | DirectiveParser;
@@ -43,28 +41,6 @@ const directiveMapping: DirectiveMapping = buildDirectiveMapping({
     include: parseIncludeDirective,
     style: parseStyleDirective,
 });
-
-function parseSetting(line: string): Setting {
-    const match = SETTING_PATTERN.exec(line);
-    if (!match) throw parseError(`Invalid setting: ${line}`);
-
-    const name = match[1];
-    const parametersLine = match[2];
-    const parameters: string[] = [];
-    if (parametersLine) {
-        let parameterMatch;
-        while (
-            (parameterMatch = SETTING_PARAMETERS_PATTERN.exec(parametersLine))
-        ) {
-            const parameter = parameterMatch[1] || parameterMatch[2];
-            if (parameter) {
-                parameters.push(parameter);
-            }
-        }
-    }
-
-    return new Setting(name, parameters);
-}
 
 function parseSettingDirective(indent: number, line: string): SettingDirecitve {
     const lines = line.split(/\s*,\s*/);

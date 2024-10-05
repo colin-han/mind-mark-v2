@@ -1,6 +1,6 @@
 {
     "*.{ts,tsx}": [
-        "tsc --noEmit --skipLibCheck",
+        "tsc --noEmit --skipLibCheck --allowSyntheticDefaultImports",
         "eslint --fix",
         "prettier --write"
     ],

@@ -20,7 +20,7 @@ describe('parse', () => {
     it('should process directive lines', () => {
         const name = 'testDoc';
         const text = `@setting autoNumber
-        @setting test`;
+        @setting estimation`;
         const doc = parse(name, text);
         expect(doc.root.directives.length).toBe(2);
     });

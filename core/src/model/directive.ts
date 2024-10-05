@@ -1,16 +1,10 @@
+import { Setting } from './settings';
 import { Statement } from './statement';
 
 export interface Directive extends Statement {
     readonly type: 'directive';
     readonly directiveType: string;
     readonly directiveAlias?: string[];
-}
-
-export class Setting {
-    constructor(
-        readonly name: string,
-        readonly parameters: string[]
-    ) {}
 }
 
 export class SettingDirecitve implements Directive {
